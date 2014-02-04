@@ -38,7 +38,9 @@ BOOST_PYTHON_MODULE(_vlfeat)
 	    &extract_pyarray, type_id<PyArrayObject>());
 
 	def("vl_mser", vl_mser_python);
+        def("vl_mser3D", vl_mser_python3D);
 	def("vl_erfill", vl_erfill_python);
+        def("vl_erfill3D", vl_erfill_python3D);
 	def("vl_sift", vl_sift_python);
 	def("vl_dsift", vl_dsift_python);
 	def("vl_siftdescriptor", vl_siftdescriptor_python);

@@ -104,7 +104,51 @@ def vl_mser(
 		
 	return _vlfeat.vl_mser(data, delta, max_area, min_area, \
 							max_variation, min_diversity)
+
+def vl_mser3D(
+		data, 
+		delta=5, 
+		max_area=.75, 
+		min_area=.0002,
+		max_variation=.25, 
+		min_diversity=.2):
+	""" Computes the Maximally Stable Extremal Regions (MSER) [1] of image I 
+	with stability threshold DELTA. I is any array of class UINT8. R is a vector
+	of region seeds. \n 
+	A (maximally stable) extremal region is just a connected component of one of
+	the level sets of the image I. An extremal region can be recovered from a
+	seed X as the connected component of the level set {Y: I(Y) <= I(X)} which
+	contains the pixel o index X. \n
+	It also returns ellipsoids F fitted to the regions. Each column of F 
+	describes an ellipsoid; F(1:D,i) is the center of the elliposid and
+	F(D:end,i) are the independent elements of the co-variance matrix of the
+	ellipsoid. \n
+	Ellipsoids are computed according to the same reference frame of I seen as 
+	a matrix. This means that the first coordinate spans the first dimension of
+	I. \n
+	The function vl_plotframe() is used to plot the ellipses.
 	
+	@param data           A gray-scale image in single precision.
+	@param delta          Set the DELTA parameter of the VL_MSER algorithm. 
+	                      Roughly speaking, the stability of a region is the
+	                      relative variation of the region area when the
+	                      intensity is changed of +/- Delta/2. 
+	@param max_area       Set the maximum area (volume) of the regions relative 
+	                      to the image domain area (volume). 
+	@param min_area       Set the minimum area (volume) of the regions relative 
+	                      to the image domain area (volume). 
+	@param max_variation  Set the maximum variation (absolute stability score) 
+	                      of the regions. 
+	@param min_diversity  Set the minimum diversity of the region. When the 
+	                      relative area variation of two nested regions is below 
+	                      this threshold, then only the most stable one is 
+	                      selected. 
+	"""
+	if not data.flags['F_CONTIGUOUS']:
+		data = numpy.array(data, order='F')		
+		
+	return _vlfeat.vl_mser3D(data, delta, max_area, min_area, \
+							max_variation, min_diversity)
 
 def vl_erfill(data, r):
 	""" Returns the list MEMBERS of the pixels which belongs to the extremal
@@ -118,6 +162,19 @@ def vl_erfill(data, r):
 		data = numpy.array(data, order='F')
 		
 	return _vlfeat.vl_erfill(data, r)
+
+def vl_erfill3D(data, r):
+	""" Returns the list MEMBERS of the pixels which belongs to the extremal
+	region represented by the pixel ER. \n
+	The selected region is the one that contains pixel ER and of intensity 
+	I(ER). \n
+	I must be of class UINT8 and ER must be a (scalar) index of the region
+	representative point. 
+	"""
+	if not data.flags['F_CONTIGUOUS']:
+		data = numpy.array(data, order='F')
+		
+	return _vlfeat.vl_erfill3D(data, r)
 
 
 def vl_dsift(

@@ -11,6 +11,9 @@
 
 # Python complied files
 *.pyc
+*.pyo
+*.o
+*.so
 
 # Other generated files and directories
 VERSION

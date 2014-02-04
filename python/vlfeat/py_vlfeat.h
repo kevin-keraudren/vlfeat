@@ -38,6 +38,14 @@ PyObject * vl_mser_python(
 		double max_variation = -1,
 		double min_diversity = -1);
 
+PyObject * vl_mser_python3D(
+		PyArrayObject & pyArray,
+		double delta = -1,
+		double max_area = -1,
+		double min_area = .05,
+		double max_variation = -1,
+		double min_diversity = -1);
+
 /**
  *
  * @param image
@@ -45,6 +53,7 @@ PyObject * vl_mser_python(
  * @return
  */
 PyObject * vl_erfill_python(PyArrayObject & image, double seed);
+PyObject * vl_erfill_python3D(PyArrayObject & image, double seed);
 
 /**
  *

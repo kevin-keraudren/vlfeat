@@ -35,4 +35,4 @@ if __name__ == '__main__':
     pylab.gray()
     pylab.imshow(seg[0])
 
-    #pylab.show()
+    pylab.show()
